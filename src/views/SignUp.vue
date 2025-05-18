@@ -1,188 +1,183 @@
 <template>
-    <v-main>
-      <v-row justify="center" align="center" class="login-container">
-        <v-col cols="12" sm="8" md="6" lg="4">
-          <v-card class="pa-4 elevation-6">
-            <v-card-title class="text-center text-h4 teal--text text--darken-2 pt-4 pb-2">
-              Welcome Back
-            </v-card-title>
-            <v-card-subtitle class="text-center pb-4">
-              Sign in to your account
-            </v-card-subtitle>
+  <div class="background-wrapper"> 
+    <div class="signup-container">
+      <div class="title">
+        <h1>Sign up now with EduAid</h1>
+      </div>
+      <div class="form-box">
+        <h2>Create Your Account</h2>
+        <form @submit.prevent="handleSubmit">
+          <div class="form-group">
+            <label for="name">Full Name</label>
+            <input v-model="form.name" type="text" id="name" required />
+          </div>
 
-            <v-card-text>
-              <v-form ref="loginForm" v-model="valid" lazy-validation @submit.prevent="handleLogin">
-                <v-text-field
-                  v-model="email"
-                  :rules="emailRules"
-                  label="Email"
-                  prepend-inner-icon="mdi-email"
-                  required
-                  variant="outlined"
-                  class="mb-4"
-                ></v-text-field>
-  
-                <v-text-field
-                  v-model="password"
-                  :rules="passwordRules"
-                  :type="showPassword ? 'text' : 'password'"
-                  label="Password"
-                  prepend-inner-icon="mdi-lock"
-                  :append-inner-icon="showPassword ? 'mdi-eye-off' : 'mdi-eye'"
-                  @click:append-inner="showPassword = !showPassword"
-                  required
-                  variant="outlined"
-                  class="mb-2"
-                ></v-text-field>
-  
-                <!-- Display error message if any -->
-                <v-alert
-                  v-if="errorMessage"
-                  type="error"
-                  class="mb-4"
-                  density="compact"
-                  variant="tonal"
-                >
-                  {{ errorMessage }}
-                </v-alert>
-  
-                <div class="d-flex justify-space-between mb-6">
-                  <v-checkbox
-                    v-model="rememberMe"
-                    label="Remember me"
-                    color="teal darken-1"
-                    hide-details
-                  ></v-checkbox>
-                  <v-btn
-                    variant="text"
-                    color="teal darken-1"
-                    class="text-caption"
-                    to="/forgot-password"
-                  >
-                    Forgot Password?
-                  </v-btn>
-                </div>
-  
-                <v-btn
-                  type="submit"
-                  block
-                  size="large"
-                  color="teal darken-1"
-                  :disabled="!valid || loading"
-                  :loading="loading"
-                  class="white--text"
-                >
-                  Sign In
-                </v-btn>
-  
-                <div class="mt-6 text-center">
-                  <span class="text-body-2">Don't have an account? </span>
-                  <v-btn variant="text" color="teal darken-1" to="/register" class="text-none px-1">
-                    Sign Up
-                  </v-btn>
-                </div>
-              </v-form>
-            </v-card-text>
-  
-            <v-divider class="my-3"></v-divider>
-  
-            <v-card-text class="text-center">
-              <p class="text-caption text-medium-emphasis mb-2">Or continue with</p>
-              <v-row justify="center" class="px-4">
-                <v-col cols="auto">
-                  <v-btn icon color="blue darken-3">
-                    <v-icon>mdi-facebook</v-icon>
-                  </v-btn>
-                </v-col>
-                <v-col cols="auto">
-                  <v-btn icon color="red darken-1">
-                    <v-icon>mdi-google</v-icon>
-                  </v-btn>
-                </v-col>
-                <v-col cols="auto">
-                  <v-btn icon color="black">
-                    <v-icon>mdi-apple</v-icon>
-                  </v-btn>
-                </v-col>
-              </v-row>
-            </v-card-text>
-          </v-card>
-        </v-col>
-      </v-row>
-    </v-main>
-  </template>
-  
-  <script setup>
-  import { ref } from 'vue'
-  import { useRouter } from 'vue-router'
-  import { useAuth } from '../services/AuthService'
-  import { useApi } from '../composables/api'
-  
-  const router = useRouter()
-  const auth = useAuth()
-  const { loading, error, jsonRequest } = useApi()
-  
-  // Form state
-  const valid = ref(false)
-  const loginForm = ref(null)
-  const email = ref('')
-  const password = ref('')
-  const rememberMe = ref(false)
-  const showPassword = ref(false)
-  const errorMessage = ref('')
-  
-  // Validation rules
-  const emailRules = [
-    (v) => !!v || 'Email is required',
-    (v) => /.+@.+\..+/.test(v) || 'Email must be valid',
-  ]
-  
-  const passwordRules = [
-    (v) => !!v || 'Password is required',
-    (v) => v.length >= 6 || 'Password must be at least 6 characters',
-  ]
-  
-  // Form submission handler
-  const handleLogin = async () => {
-    if (!loginForm.value.validate()) return
-  
-    errorMessage.value = ''
-  
-    try {
-      // Use the jsonRequest method with correct Laravel endpoint
-      const response = await jsonRequest('login', 'POST', { 
-        email: email.value,
-        password: password.value 
-      })
-  
-      // Store the token and user data
-      localStorage.setItem('auth_token', response.token)
-      auth.login(response.token, response.user)
-  
-      // If remember me is checked, store in localStorage
-      if (rememberMe.value) {
-        localStorage.setItem('remember_user', 'true')
-      }
-  
-      // Redirect to dashboard or home page
-      router.push('/welcome')
-    } catch (err) {
-      console.error('Login error:', err)
-      if (err.data && err.data.message) {
-        errorMessage.value = err.data.message
-      } else if (err.message) {
-        errorMessage.value = err.message
-      } else {
-        errorMessage.value = 'Login failed. Please try again.'
-      }
-    }
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input v-model="form.email" type="email" id="email" required />
+          </div>
+
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input v-model="form.password" type="password" id="password" required />
+          </div>
+
+          <div class="form-group">
+            <label for="confirmPassword">Confirm Password</label>
+            <input v-model="form.confirmPassword" type="password" id="confirmPassword" required />
+          </div>
+
+          <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
+
+          <button type="submit">Sign Up</button>
+
+          <!-- Login Prompt -->
+          <p class="login-prompt">
+            Already a member?
+            <router-link to="/login" class="login-link">Log In!</router-link>
+          </p>
+        </form>
+      </div>
+    </div>
+  </div>
+</template>
+<script setup>
+import { ref } from 'vue';
+
+const form = ref({
+  name: '',
+  email: '',
+  password: '',
+  confirmPassword: '',
+});
+
+const errorMessage = ref('');
+
+const handleSubmit = () => {
+  if (!form.value.name || !form.value.email || !form.value.password || !form.value.confirmPassword) {
+    errorMessage.value = 'Please fill in all fields.';
+    return;
   }
-  </script>
-  
-  <style scoped>
-  .login-container {
-    min-height: calc(100vh - 64px);
-    display: flex;
-    align-items: center;
+
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.value.email)) {
+    errorMessage.value = 'Please enter a valid email.';
+    return;
   }
-  </style>
+
+  if (form.value.password !== form.value.confirmPassword) {
+    errorMessage.value = 'Passwords do not match.';
+    return;
+  }
+
+  console.log('Form submitted:', form.value);
+  errorMessage.value = '';
+  alert('Sign-up successful!');
+};
+</script>
+
+<style scoped>
+.signup-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px;
+  min-height: 100vh;
+}
+
+.title {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.title h1 {
+  font-size: 2rem;
+  color: #2c3e50;
+}
+
+.form-box {
+  background: rgba(0, 0, 0, 0.5);
+  padding: 30px;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #eee;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: bold;
+  color: #f0f0f0;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #444;
+  font-size: 1rem;
+  background-color: #1a1a1a; 
+  color: #ffffff;            
+}
+
+button {
+  width: 100%;
+  padding: 12px;
+  background-color: #d3760b;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+button:hover {
+  background-color: #b38900;
+}
+
+.error {
+  color: red;
+  font-size: 0.9rem;
+  margin-bottom: 10px;
+}
+
+.background-wrapper {
+  background-image: url('C:\\Users\\seanm\\OneDrive\\Documents\\EduAid\\src\\assets\\contactimg.jpg'); 
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-prompt {
+  margin-top: 15px;
+  text-align: center;
+  color: #f0f0f0;
+  font-size: 0.9rem;
+}
+
+.login-link {
+  color: #d3760b;
+  text-decoration: none;
+  font-weight: bold;
+  margin-left: 5px;
+}
+
+.login-link:hover {
+  text-decoration: underline;
+}
+</style>

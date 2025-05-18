@@ -5,35 +5,37 @@
       <div class="hero-content">
         <h1>Welcome to EduAid!</h1>
         <p>Recieve opportunities to persue your academic excellence</p>
-        <button class="cta-button">Apply for a Bursary</button>
+        <router-link to="/scholarships">
+  <button class="cta-button">Apply for a Scholarship</button>
+</router-link>
       </div>
     </section>
 
     <!-- Featured Section -->
     <section class="featured-section">
       <div class="container">
-        <h2 class="section-title">Our Specialties</h2>
+        <h2 class="section-title">Our Scolarships</h2>
         <div class="featured-items">
           <div class="featured-item">
             <div class="featured-image">
-              <img src="../assets/images/love-icon.jpg" alt="Signature Dish">
+              <img src="C:\Users\seanm\OneDrive\Documents\EduAid\src\assets\seniors.jpg" alt="Highschool Seniors">
             </div>
-            <h3>Signature Risotto</h3>
-            <p>Wild mushroom risotto with truffle oil and parmesan</p>
+            <h3>Scholarships for High School Seniors</h3>
+            <p>Your senior year in high school is a crucial time for college preparation. Among the many tasks, finding and applying for college scholarships should be a priority. It's important to start this process early.</p>
           </div>
           <div class="featured-item">
             <div class="featured-image">
-              <img src="../assets/images/fish.jpg" alt="Chef's Special">
+              <img src="C:\Users\seanm\OneDrive\Documents\EduAid\src\assets\studentsimage1.jpg" alt="Highschool Juniors">
             </div>
-            <h3>Chef's Special</h3>
-            <p>Pan-seared salmon with lemon butter sauce</p>
+            <h3>Scholarships for High School Juniors</h3>
+            <p>High school juniors shouldn't wait until senior year to start applying for scholarships. Many scholarship programs are open to juniors, offering them an early opportunity to secure scholarships for college.</p>
           </div>
           <div class="featured-item">
             <div class="featured-image">
-              <img src="../assets/images/love-icon.jpg" alt="Seasonal Offering">
+              <img src="C:\Users\seanm\OneDrive\Documents\EduAid\src\assets\womeninpower.jpg" alt="Women Empowerment">
             </div>
-            <h3>Seasonal Offering</h3>
-            <p>Autumn vegetable tart with goat cheese</p>
+            <h3>Scholarships for Women</h3>
+            <p>Women have surpassed men in achieving college degrees. This can be at least partially attributed to the number of scholarships available exclusively for women, enhancing their educational opportunities.</p>
           </div>
         </div>
       </div>
@@ -45,12 +47,13 @@
         <div class="about-content">
           <div class="about-text">
             <h2 class="section-title">Our Story</h2>
-            <p>Founded in 2010, Savoria brings together the finest ingredients and culinary expertise to create an unforgettable dining experience. Our chef, with over 20 years of experience, crafts each dish with passion and precision.</p>
-            <p>We believe in sustainable sourcing and supporting local farmers, ensuring that every ingredient that enters our kitchen meets our high standards of quality and freshness.</p>
-            <button class="secondary-button">Learn More</button>
+            <p>Founded in 2010, EduAid is a government initiative designed to simplify the process of applying for bursaries and free education. We strive to ensure that every eligible citizen has access to financial support for their education.</p>
+            <router-link to="/about">
+  <button class="secondary-button">Learn More</button>
+</router-link>
           </div>
           <div class="about-image">
-            <img src="../assets/images/restaurant.jpg" alt="Restaurant Interior">
+            <img src="C:\Users\seanm\OneDrive\Documents\EduAid\src\assets\graduants.jpg" alt="Graduants">
           </div>
         </div>
       </div>
@@ -59,22 +62,22 @@
     <!-- Testimonials Section -->
     <section class="testimonials-section">
       <div class="container">
-        <h2 class="section-title">What Our Guests Say</h2>
+        <h2 class="section-title">Frequently asked Questions</h2>
         <div class="testimonials">
           <div class="testimonial">
-            <div class="stars">★★★★★</div>
-            <p class="quote">"The best dining experience I've had in years. The food was exquisite and the service impeccable."</p>
-            <p class="author">- Maria S.</p>
+            <div class="stars">Do I need to create an account to view scholarships on EduAid?</div>
+            <p class="quote">"No, you can browse scholarships on Scholarships.com without creating an account by visiting our Scholarship Directory. However, registering allows you to receive personalized scholarship matches based on your background, interests, and eligibility, making it easier to find opportunities that are the best fit for you."</p>
+            
           </div>
           <div class="testimonial">
-            <div class="stars">★★★★★</div>
-            <p class="quote">"A hidden gem with atmosphere that matches the incredible flavors. Will definitely be returning!"</p>
-            <p class="author">- James T.</p>
+            <div class="stars">Is EduAid completely free?</div>
+            <p class="quote">"Yes, Scholarships.com is completely free to use. There are no fees to search for scholarships, create an account, or access any of our resources. Our goal is to help students find and win scholarships without any cost or obligation."</p>
+            
           </div>
           <div class="testimonial">
-            <div class="stars">★★★★★</div>
-            <p class="quote">"From appetizers to dessert, every dish was prepared with attention to detail. Truly memorable."</p>
-            <p class="author">- Ana L.</p>
+            <div class="stars">What is EduAid?</div>
+            <p class="quote">"EduCare is a government initiative designed to simplify the process of applying for bursaries and free education. We strive to ensure that every eligible citizen has access to financial support for their education."</p>
+            
           </div>
         </div>
       </div>
@@ -92,30 +95,31 @@
           </div>
           <div class="info-card">
             <h3>Location</h3>
-            <p>123 Culinary Avenue</p>
-            <p>Foodie District</p>
-            <p>Gastro City, GC 12345</p>
+            <p>123 Masomo Drive</p>
+            <p>Education District</p>
+            <p>Central City, GC 12345</p>
           </div>
           <div class="info-card">
             <h3>Contact</h3>
-            <p>Phone: (555) 123-4567</p>
-            <p>Email: info@savoria.com</p>
-            <p>Reservations recommended</p>
+            <p>Phone: +1 (800) 123-4567</p>
+            <p>Email: info@eduaid.gov</p>
+            
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Newsletter Section -->
+     <!-- Newsletter Section -->
     <section class="newsletter-section">
       <div class="container">
         <div class="newsletter-content">
           <h2>Stay Updated</h2>
-          <p>Subscribe to our newsletter for special offers and events</p>
-          <form class="newsletter-form">
-            <input type="email" placeholder="Your email address" required>
+          <p>Subscribe to our newsletter for special announcements!</p>
+          <form class="newsletter-form" @submit="handleSubscribe">
+            <input v-model="email" type="email" placeholder="Your email address" required>
             <button type="submit">Subscribe</button>
           </form>
+          <div v-if="showPopup" class="popup">Successfully Subscribed!</div>
         </div>
       </div>
     </section>
@@ -125,6 +129,17 @@
 <script setup>
 import { ref } from 'vue';
 
+const email = ref('');
+const showPopup = ref(false);
+
+const handleSubscribe = (e) => {
+  e.preventDefault();
+  showPopup.value = true;
+  setTimeout(() => {
+    showPopup.value = false;
+    email.value = '';
+  }, 3000);
+};
 </script>
 
 <style scoped>
@@ -139,13 +154,13 @@ import { ref } from 'vue';
   font-size: 2.5rem;
   text-align: center;
   margin-bottom: 2rem;
-  color: #333;
+  color: #9e9999;
 }
 
 /* Hero Section */
 .hero {
   height: 80vh;
-  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/images/hero-bg.jpg');
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('C:\Users\seanm\OneDrive\Documents\EduAid\src\assets\homepage1.jpg');
   background-size: cover;
   background-position: center;
   display: flex;
@@ -172,7 +187,7 @@ import { ref } from 'vue';
 }
 
 .cta-button {
-  background-color: #e74c3c;
+  background-color: #d3760b;
   color: white;
   border: none;
   padding: 12px 30px;
@@ -183,13 +198,13 @@ import { ref } from 'vue';
 }
 
 .cta-button:hover {
-  background-color: #c0392b;
+  background-color: #a5672a;
 }
 
 /* Featured Section */
 .featured-section {
   padding: 5rem 0;
-  background-color: #f9f9f9;
+  background-color: hsla(0, 8%, 5%, 0.982);
 }
 
 .featured-items {
@@ -226,11 +241,11 @@ import { ref } from 'vue';
 .featured-item h3 {
   font-size: 1.5rem;
   margin-bottom: 0.5rem;
-  color: #333;
+  color: hsl(0, 0%, 98%);
 }
 
 .featured-item p {
-  color: #666;
+  color: #d7d0d0;
 }
 
 /* About Section */
@@ -264,8 +279,8 @@ import { ref } from 'vue';
 
 .secondary-button {
   background-color: transparent;
-  color: #e74c3c;
-  border: 2px solid #e74c3c;
+  color: #d3760b;
+  border: 2px solid #d3760b;
   padding: 10px 25px;
   font-size: 1rem;
   cursor: pointer;
@@ -274,7 +289,7 @@ import { ref } from 'vue';
 }
 
 .secondary-button:hover {
-  background-color: #e74c3c;
+  background-color: #d3760b;
   color: white;
 }
 
@@ -302,7 +317,7 @@ import { ref } from 'vue';
 }
 
 .stars {
-  color: #f1c40f;
+  color: #d3760b;
   font-size: 1.5rem;
   margin-bottom: 1rem;
 }
@@ -332,7 +347,7 @@ import { ref } from 'vue';
 
 .info-card {
   flex: 1;
-  background-color: #f9f9f9;
+  background-color: #1e1b1b;
   padding: 2rem;
   border-radius: 8px;
   min-width: 250px;
@@ -384,7 +399,7 @@ import { ref } from 'vue';
 }
 
 .newsletter-form button {
-  background-color: #e74c3c;
+  background-color: #d3760b;
   color: white;
   border: none;
   padding: 0 20px;
@@ -394,7 +409,27 @@ import { ref } from 'vue';
 }
 
 .newsletter-form button:hover {
-  background-color: #c0392b;
+  background-color: #aa721e;
+}
+
+.popup {
+  background-color: #28a745;
+  color: white;
+  padding: 15px 30px;
+  border-radius: 5px;
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  z-index: 9999;
+  animation: fadeInOut 3s ease;
+}
+
+@keyframes fadeInOut {
+  0% { opacity: 0; transform: translateY(20px); }
+  10% { opacity: 1; transform: translateY(0); }
+  90% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(20px); }
 }
 
 /* Responsive Adjustments */

@@ -1,5 +1,5 @@
 <template>
-    <v-footer color="teal darken-4">
+    <v-footer color="#d3760b">
       <v-row justify="center" no-gutters>
         <v-btn
           v-for="link in links"
@@ -14,7 +14,7 @@
           {{ link.text }}
         </v-btn>
         <v-col class="text-center mt-4" cols="12">
-            <strong>restaurant island</strong> &copy; {{ new Date().getFullYear() }}
+            <strong>EduAid</strong> &copy; {{ new Date().getFullYear() }}
         </v-col>
       </v-row>
     </v-footer>
@@ -24,9 +24,9 @@
 
     const links = ref([
           {text:'Home', route:'/'},
-          {text:'About Us', route:'/about-us'},
-          {text:'Services', route:'/services'},
-          {text:'Contact Us', route:'/contact-us'},
+          {text:'About ', route:'/about'},
+          {text:'Contact Us', route:'/contact'},
           {text:'Login', route:'/login'},
+          {text:'SignUp', route:'/signup'},
         ]);
   </script>

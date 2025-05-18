@@ -1,171 +1,159 @@
-<!-- <template>
-    <div><h1> login</h1></div>
-</template> -->
-
 <template>
-  <v-main>
-    <v-row justify="center" align="center" class="login-container">
-      <v-col cols="12" sm="8" md="6" lg="4">
-        <v-card class="pa-4 elevation-6">
-          <v-card-title class="text-center text-h4 teal--text text--darken-2 pt-4 pb-2">
-            Welcome Back
-          </v-card-title>
-          <v-card-subtitle class="text-center pb-4">
-            Login in to your  account
-          </v-card-subtitle>
+  <div class="background-wrapper">
+    <div class="login-container">
+      <div class="title">
+        <h1>Welcome Back to EduAid</h1>
+      </div>
+      <div class="form-box">
+        <h2>Login</h2>
+        <form @submit.prevent="handleLogin">
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input id="email" type="email" v-model="email" required />
+          </div>
 
-          <v-card-text>
-            <v-form ref="loginForm" v-model="valid" lazy-validation @submit.prevent="handleLogin">
-              <v-text-field
-                v-model="email"
-                :rules="emailRules"
-                label="Email"
-                prepend-inner-icon="mdi-email"
-                required
-                variant="outlined"
-                class="mb-4"
-              ></v-text-field>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input id="password" type="password" v-model="password" required />
+          </div>
 
-              <v-text-field
-                v-model="password"
-                :rules="passwordRules"
-                :type="showPassword ? 'text' : 'password'"
-                label="Password"
-                prepend-inner-icon="mdi-lock"
-                :append-inner-icon="showPassword ? 'mdi-eye-off' : 'mdi-eye'"
-                @click:append-inner="showPassword = !showPassword"
-                required
-                variant="outlined"
-                class="mb-2"
-              ></v-text-field>
+          <p v-if="error" class="error">{{ error }}</p>
 
-              <!-- Display error message if any -->
-              <v-alert
-                v-if="errorMessage"
-                type="error"
-                class="mb-4"
-                density="compact"
-                variant="tonal"
-              >
-                {{ errorMessage }}
-              </v-alert>
-
-              <div class="d-flex justify-space-between mb-6">
-                <v-checkbox
-                  v-model="rememberMe"
-                  label="Remember me"
-                  color="teal darken-1"
-                  hide-details
-                ></v-checkbox>
-                <v-btn
-                  variant="text"
-                  color="teal darken-1"
-                  class="text-caption"
-                  to="/forgot-password"
-                >
-                  Forgot Password?
-                </v-btn>
-              </div>
-
-              <v-btn
-                type="submit"
-                block
-                size="large"
-                color="teal darken-1"
-                :disabled="!valid || loading"
-                :loading="loading"
-                class="white--text"
-              >
-                LogIn
-              </v-btn>
-
-              <div class="mt-6 text-center">
-                <span class="text-body-2">Don't have an account? </span>
-                <v-btn variant="text" color="teal darken-1" to="/signuppage" class="text-none px-1">
-                  Sign Up
-                </v-btn>
-              </div>
-            </v-form>
-          </v-card-text>
-
-          <v-divider class="my-3"></v-divider>
-
-          <v-card-text class="text-center">
-            <p class="text-caption text-medium-emphasis mb-2">Or continue with</p>
-            <v-row justify="center" class="px-4">
-              <v-col cols="auto">
-                <v-btn icon color="blue darken-3">
-                  <v-icon>mdi-facebook</v-icon>
-                </v-btn>
-              </v-col>
-              <v-col cols="auto">
-                <v-btn icon color="red darken-1">
-                  <v-icon>mdi-google</v-icon>
-                </v-btn>
-              </v-col>
-              <v-col cols="auto">
-                <v-btn icon color="black">
-                  <v-icon>mdi-apple</v-icon>
-                </v-btn>
-              </v-col>
-            </v-row>
-          </v-card-text>
-        </v-card>
-      </v-col>
-    </v-row>
-  </v-main>
+          <button type="submit">Login</button>
+        </form>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script setup>
 import { ref } from 'vue'
-import { useRouter } from 'vue-router'
-import { useAuth } from '@/stores/services/auth.service'
+import axios from 'axios'
 
-const router = useRouter()
-const { login, loading, error } = useAuth()
-
-// const { loading, error, jsonRequest } = useApi()
-
-// Form state
-const valid = ref(false)
-const loginForm = ref(null)
 const email = ref('')
 const password = ref('')
+const error = ref('')
 
-// Validation rules
-const emailRules = [
-  (v) => !!v || 'Email is required',
-  (v) => /.+@.+\..+/.test(v) || 'Email must be valid',
-]
+// Make sure axios sends cookies with requests
+axios.defaults.withCredentials = true
 
-const passwordRules = [
-  (v) => !!v || 'Password is required',
-  (v) => v.length >= 6 || 'Password must be at least 6 characters',
-]
-
-// Form submission handler
-// const handleLogin = async () => {
-async function handleLogin() {
-  // if (!loginForm.value.validate()) return
+const handleLogin = async () => {
+  error.value = ''
 
   try {
-    await login({
+    // Step 1: Get CSRF cookie from Laravel Sanctum
+    await axios.get('http://127.0.0.1:8000/sanctum/csrf-cookie')
+
+    // Step 2: Send login request with user input
+    const response = await axios.post('http://127.0.0.1:8000/api/login', {
       email: email.value,
-      password: password.value,
+      password: password.value
     })
-    // Redirect to dashboard or home page
-    router.push('/welcome')
+
+    // On success, response.data contains user info or token
+    console.log('Login successful:', response.data)
+    alert('Login successful!')
+
+    // TODO:
+    // - Save token or user info (e.g. in Pinia or localStorage)
+    // - Redirect to dashboard or home page
+    // For example:
+    // router.push('/dashboard')
+
   } catch (err) {
-    console.error('Login error:', err)
+    console.error('Login error:', err.response?.data || err.message)
+    error.value = err.response?.data?.message || 'Login failed. Please try again.'
   }
 }
 </script>
-
 <style scoped>
 .login-container {
-  background-image: url('../public/Farm2.jpg');
-  min-height: calc(100vh - 64px);
   display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px;
+  min-height: 100vh;
+  color: white;
+  background-color: transparent; /* Remove black bar */
+}
+
+.title {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.title h1 {
+  font-size: 2rem;
+  color: #ffffff;
+}
+
+.form-box {
+  background: rgba(0, 0, 0, 0.5); /* Optional: semi-transparent background */
+  padding: 30px;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #ffffff;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  background-color: rgba(255, 255, 255, 0.9); /* Make inputs readable */
+  color: #000;
+}
+
+button {
+  width: 100%;
+  padding: 12px;
+  background-color: #d3760b;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+button:hover {
+  background-color: #b38300;
+}
+
+.error {
+  color: red;
+  font-size: 0.9rem;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.background-wrapper {
+  background-image: url('/src/assets/contactimg.jpg'); /* Use a web-friendly path */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
   align-items: center;
 }
 </style>
